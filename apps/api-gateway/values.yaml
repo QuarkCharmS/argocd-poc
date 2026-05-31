@@ -2,9 +2,8 @@ ui:
   color: "#7ED321"
   message: "api-gateway service"
 
-replicaCount: 1
-
-resources:
-  requests:
-    cpu: 50m
-    memory: 64Mi
+hpa:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 4
+  cpu: 80
