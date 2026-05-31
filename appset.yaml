@@ -6,7 +6,7 @@ metadata:
 spec:
   generators:
     - git:
-        repoURL: https://github.com/YOUR_ORG/repo-a.git  # <-- change this
+        repoURL: https://github.com/QuarkCharmS/argocd-poc.git  # <-- change this
         revision: HEAD
         directories:
           - path: apps/*
