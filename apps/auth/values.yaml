@@ -1,0 +1,10 @@
+ui:
+  color: "#D0021B"
+  message: "auth service"
+
+replicaCount: 1
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi

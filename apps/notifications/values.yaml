@@ -1,0 +1,10 @@
+ui:
+  color: "#9B59B6"
+  message: "notifications service"
+
+replicaCount: 1
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi

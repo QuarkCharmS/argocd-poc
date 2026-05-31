@@ -1,0 +1,43 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: bank-microservices
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/YOUR_ORG/repo-a.git  # <-- change this
+        revision: HEAD
+        directories:
+          - path: apps/*
+  template:
+    metadata:
+      name: "{{path.basename}}"
+    spec:
+      project: default
+      source:
+        repoURL: https://stefanprodan.github.io/podinfo
+        chart: podinfo
+        targetRevision: 6.7.0
+        helm:
+          valueFiles:
+            - $values/apps/{{path.basename}}/values.yaml
+      sources:
+        - repoURL: https://stefanprodan.github.io/podinfo
+          chart: podinfo
+          targetRevision: 6.7.0
+          helm:
+            valueFiles:
+              - $values/apps/{{path.basename}}/values.yaml
+        - repoURL: https://github.com/YOUR_ORG/repo-a.git  # <-- change this
+          targetRevision: HEAD
+          ref: values
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{path.basename}}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
